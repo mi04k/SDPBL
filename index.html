@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タイトル</title>
+    <title>タイピングゲーム</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>これはサンプルのウェブサイトです。</p>
+    <div id="game-area" class="hidden">
+        <h1>タイピングゲーム</h1>
+        <p id="current-word">ここに単語が表示されます</p>
+        <input type="text" id="typing-input" autofocus>
+        <p id="result"></p>
+    </div>
+
+    <div id="word-list">
+        <h2>単語リスト</h2>
+        <!-- ここに追加された単語が表示される -->
+    </div>
+
+    <div id="controls">
+        <input type="text" id="word-input" placeholder="単語を追加">
+        <button id="add-word">追加</button>
+        <button id="start-game">ゲーム開始</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
