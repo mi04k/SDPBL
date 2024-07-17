@@ -1,38 +1,52 @@
-let words = ["apple", "banana", "grape", "orange", "mango", "peach", "lemon", "lime", "cherry", "berry"];
-let currentWord;
-let startTime;
-const wordElement = document.getElementById("word");
-const inputElement = document.getElementById("input");
-const messageElement = document.getElementById("message");
-const startButton = document.getElementById("start");
-const wordListInputElement = document.getElementById("wordListInput");
-const updateWordsButton = document.getElementById("updateWords");
+document.addEventListener('DOMContentLoaded', () => {
+    const wordInput = document.getElementById('word-input');
+    const addWordButton = document.getElementById('add-word');
+    const wordList = document.getElementById('word-list');
+    const startGameButton = document.getElementById('start-game');
+    const gameArea = document.getElementById('game-area');
+    const currentWordDisplay = document.getElementById('current-word');
+    const typingInput = document.getElementById('typing-input');
+    const resultDisplay = document.getElementById('result');
 
-function updateWords() {
-    const userInput = wordListInputElement.value;
-    words = userInput.split(",").map(word => word.trim());
-    alert("単語リストが更新されました: " + words.join(", "));
-}
+    let words = [];
+    let currentWord = '';
+    let startTime;
 
-function startGame() {
-    currentWord = words[Math.floor(Math.random() * words.length)];
-    wordElement.textContent = currentWord;
-    inputElement.value = "";
-    inputElement.disabled = false;
-    inputElement.focus();
-    messageElement.textContent = "";
-    startTime = new Date().getTime();
-}
+    addWordButton.addEventListener('click', () => {
+        const word = wordInput.value.trim();
+        if (word) {
+            words.push(word);
+            const wordItem = document.createElement('div');
+            wordItem.textContent = word;
+            wordList.appendChild(wordItem);
+            wordInput.value = '';
+        }
+    });
 
-function checkInput() {
-    if (inputElement.value === currentWord) {
-        const endTime = new Date().getTime();
-        const timeTaken = (endTime - startTime) / 1000;
-        messageElement.textContent = `正確にタイピングできました！かかった時間: ${timeTaken} 秒`;
-        inputElement.disabled = true;
+    startGameButton.addEventListener('click', () => {
+        if (words.length > 0) {
+            gameArea.classList.remove('hidden');
+            wordInput.disabled = true;
+            addWordButton.disabled = true;
+            startGame();
+        } else {
+            alert('まずは単語を追加してください');
+        }
+    });
+
+    typingInput.addEventListener('input', () => {
+        if (typingInput.value === currentWord) {
+            const timeTaken = (new Date() - startTime) / 1000;
+            resultDisplay.textContent = `正解！所要時間: ${timeTaken}秒`;
+            setTimeout(startGame, 1000);
+        }
+    });
+
+    function startGame() {
+        typingInput.value = '';
+        resultDisplay.textContent = '';
+        currentWord = words[Math.floor(Math.random() * words.length)];
+        currentWordDisplay.textContent = currentWord;
+        startTime = new Date();
+        typingInput.focus();
     }
-}
-
-updateWordsButton.addEventListener("click", updateWords);
-startButton.addEventListener("click", startGame);
-inputElement.addEventListener("input", checkInput);
