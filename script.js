@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentWord = '';
     let startTime;
     let gameRunning = false;
-    let wordIndex = 0; // 現在の単語のインデックス
+    let wordIndex = 0;
 
     // 単語の追加
     addWordButton.addEventListener('click', () => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             wordInput.disabled = true;
             addWordButton.disabled = true;
             startGameButton.disabled = true;
-            endGameButton.disabled = false; // ゲーム終了ボタンを有効化
+            endGameButton.disabled = false;
             gameRunning = true;
             startGame();
         } else {
@@ -49,20 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typingInput.value === currentWord && gameRunning) {
             const timeTaken = (new Date() - startTime) / 1000;
             resultDisplay.textContent = `正解！所要時間: ${timeTaken.toFixed(2)}秒`;
-            typingInput.value = ''; // 入力欄をクリア
-            wordIndex++; // 次の単語へ
+            typingInput.value = '';
+            wordIndex++;
             if (wordIndex < words.length) {
                 currentWord = words[wordIndex];
-                currentWordDisplay.textContent = currentWord;
+                currentWordDisplay.textContent = currentWord; // 次の単語を表示
             } else {
-                endGame(); // すべての単語が入力されたらゲーム終了
+                endGame();
             }
         }
     });
 
     // ゲームの初期化
     function startGame() {
-        wordIndex = 0; // 最初の単語から開始
+        wordIndex = 0;
         currentWord = words[wordIndex];
         currentWordDisplay.textContent = currentWord;
         startTime = new Date();
