@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タイピングゲーム</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="game-area" class="hidden">
-        <h1>タイピングゲーム</h1>
-        <p id="current-word">ここに単語が表示されます</p>
-        <input type="text" id="typing-input" autofocus>
-        <p id="result"></p>
-    </div>
-
-    <div id="word-list">
-        <h2>単語リスト</h2>
-        <!-- ここに追加された単語が表示される -->
-    </div>
-
-    <div id="controls">
-        <input type="text" id="word-input" placeholder="単語を追加">
+    <h1>タイピングゲーム</h1>
+    <div>
+        <label for="word-input">単語を追加:</label>
+        <input type="text" id="word-input">
         <button id="add-word">追加</button>
+    </div>
+    <div id="word-list"></div>
+    <div>
         <button id="start-game">ゲーム開始</button>
+    </div>
+    <div id="game-area" class="hidden">
+        <h2 id="current-word">ここに単語が表示されます</h2>
+        <input type="text" id="typing-input">
+        <p id="result"></p>
+        <button id="end-game" class="hidden">ゲーム終了</button>
     </div>
 
     <script src="script.js"></script>
