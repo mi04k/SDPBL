@@ -1,0 +1,29 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#game-area {
+    margin-top: 50px;
+}
+
+#typing-input {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#result {
+    font-weight: bold;
+    color: green;
+}
+
+#controls {
+    margin-top: 20px;
+}
