@@ -46,14 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // タイピングの入力検出
     typingInput.addEventListener('input', () => {
-        if (typingInput.value === currentWord && gameRunning) {
+        if (typingInput.value.trim() === currentWord && gameRunning) { // trim()で前後の空白を除去
             const timeTaken = (new Date() - startTime) / 1000;
             resultDisplay.textContent = `正解！所要時間: ${timeTaken.toFixed(2)}秒`;
             typingInput.value = '';
             wordIndex++;
             if (wordIndex < words.length) {
                 currentWord = words[wordIndex];
-                currentWordDisplay.textContent = currentWord; // 次の単語を表示
+                currentWordDisplay.textContent = currentWord;
             } else {
                 endGame();
             }
