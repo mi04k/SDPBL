@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             wordInput.disabled = true;
             addWordButton.disabled = true;
             startGameButton.disabled = true;
-            endGameButton.disabled = false;
+            endGameButton.classList.remove('hidden');
             gameRunning = true;
             startGame();
         } else {
@@ -46,16 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // タイピングの入力検出
     typingInput.addEventListener('input', () => {
-        if (typingInput.value.trim() === currentWord && gameRunning) { // trim()で前後の空白を除去
-            const timeTaken = (new Date() - startTime) / 1000;
-            resultDisplay.textContent = `正解！所要時間: ${timeTaken.toFixed(2)}秒`;
-            typingInput.value = '';
-            wordIndex++;
-            if (wordIndex < words.length) {
-                currentWord = words[wordIndex];
-                currentWordDisplay.textContent = currentWord;
+        if (gameRunning) {
+            const typedWord = typingInput.value.trim();
+            if (typedWord === currentWord) {
+                const timeTaken = (new Date() - startTime) / 1000;
+                resultDisplay.textContent = `正解！所要時間: ${timeTaken.toFixed(2)}秒`;
+                typingInput.value = '';
+                wordIndex++;
+                if (wordIndex < words.length) {
+                    currentWord = words[wordIndex];
+                    currentWordDisplay.textContent = currentWord;
+                    startTime = new Date(); // 新しい単語のタイマーを開始
+                } else {
+                    endGame();
+                }
             } else {
-                endGame();
+                resultDisplay.textContent = '間違いです。もう一度試してください。';
             }
         }
     });
@@ -76,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         wordInput.disabled = false;
         addWordButton.disabled = false;
         startGameButton.disabled = false;
-        endGameButton.disabled = true;
+        endGameButton.classList.add('hidden');
         resultDisplay.textContent = 'すべての単語が入力されました！ゲーム終了。';
     }
 
@@ -85,3 +91,4 @@ document.addEventListener('DOMContentLoaded', () => {
         endGame();
     });
 });
+
