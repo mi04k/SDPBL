@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentWord = '';
     let startTime;
 
+    // 単語の追加
     addWordButton.addEventListener('click', () => {
         const word = wordInput.value.trim();
         if (word) {
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ゲーム開始
     startGameButton.addEventListener('click', () => {
         if (words.length > 0) {
             gameArea.classList.remove('hidden');
@@ -34,14 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // タイピングの入力検出
     typingInput.addEventListener('input', () => {
         if (typingInput.value === currentWord) {
             const timeTaken = (new Date() - startTime) / 1000;
-            resultDisplay.textContent = `正解！所要時間: ${timeTaken}秒`;
+            resultDisplay.textContent = `正解！所要時間: ${timeTaken.toFixed(2)}秒`;
             setTimeout(startGame, 1000);
         }
     });
 
+    // ゲームの初期化
     function startGame() {
         typingInput.value = '';
         resultDisplay.textContent = '';
@@ -50,3 +54,4 @@ document.addEventListener('DOMContentLoaded', () => {
         startTime = new Date();
         typingInput.focus();
     }
+});
